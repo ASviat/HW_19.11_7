@@ -16,20 +16,14 @@ Console.WriteLine("Введите количество строк: ");
 bool isParsedLines = int.TryParse(Console.ReadLine(), out int lines);
 Console.WriteLine("Введите количество столбцов: ");
 bool isParsedColumns = int.TryParse(Console.ReadLine(), out int columns);
-
-if (!isParsedLines || !isParsedColumns)
-{
-    Console.WriteLine("Ошибка!");
-    return;
-}
-
-
 Console.WriteLine("Введите число для поиска в матрице: ");
 bool isParsedNumber = int.TryParse(Console.ReadLine(), out int number);
 
-if (!isParsedNumber)
+
+if (!isParsedLines || !isParsedColumns || !isParsedNumber)
 {
     Console.WriteLine("Ошибка!");
+    return;
 }
 
 int[,] filledMatrix = FillMatrix(lines, columns);
@@ -44,7 +38,7 @@ int[,] FillMatrix(int line, int column)
     {
         for (int j = 0; j < matrix.GetLength(1); j++)
         {
-            matrix[i, j] = random.Next(-10, 11);
+            matrix[i, j] = random.Next(0, 11);
         }
     }
     return matrix;
@@ -72,8 +66,6 @@ void NumberPositioningInMatrix(int[,] matrix, int num)
         {
             if (num == matrix[i, j]) Console.WriteLine($"Позиция числа в матрице ={i},{j}");
             countOfNumbers++;
-
-            //if(num!=matrix[i,j])Console.WriteLine("Числа нет в матрице.");
         }
 
     }
