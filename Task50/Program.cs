@@ -16,11 +16,12 @@ Console.WriteLine("Введите количество строк: ");
 bool isParsedLines = int.TryParse(Console.ReadLine(), out int lines);
 Console.WriteLine("Введите количество столбцов: ");
 bool isParsedColumns = int.TryParse(Console.ReadLine(), out int columns);
-Console.WriteLine("Введите число для поиска в матрице: ");
-bool isParsedNumber = int.TryParse(Console.ReadLine(), out int number);
+Console.WriteLine("Укажите строку для вывода значения: ");
+bool isParsedLine = int.TryParse(Console.ReadLine(), out int lineToFind);
+Console.WriteLine("Укажите столбик для вывода значения: ");
+bool isParsedColumn = int.TryParse(Console.ReadLine(), out int columnToFind);
 
-
-if (!isParsedLines || !isParsedColumns || !isParsedNumber)
+if (!isParsedLines || !isParsedColumns || !isParsedLine || !isParsedColumn)
 {
     Console.WriteLine("Ошибка!");
     return;
@@ -28,7 +29,9 @@ if (!isParsedLines || !isParsedColumns || !isParsedNumber)
 
 int[,] filledMatrix = FillMatrix(lines, columns);
 PrintMatrix(filledMatrix);
-NumberPositioningInMatrix(filledMatrix, number);
+NumberToFind(filledMatrix, lineToFind, columnToFind);
+
+//
 
 int[,] FillMatrix(int line, int column)
 {
@@ -57,17 +60,9 @@ void PrintMatrix(int[,] matrix)
         Console.WriteLine();
     }
 }
-void NumberPositioningInMatrix(int[,] matrix, int num)
-{
-    int countOfNumbers = default;
-    for (int i = 0; i < matrix.GetLength(0); i++)
-    {
-        for (int j = 0; j < matrix.GetLength(1); j++)
-        {
-            if (num == matrix[i, j]) Console.WriteLine($"Позиция числа в матрице ={i},{j}");
-            countOfNumbers++;
-        }
 
-    }
-    if (countOfNumbers == 0) Console.WriteLine("Введенного числа нет в матрице.");
+void NumberToFind(int[,] matrix, int linesNumber, int columnsNumber)
+{
+    if (linesNumber >= lines || columnsNumber >= columns) Console.WriteLine("Такого числа нет в матрице.");
+    else Console.WriteLine($"Искомое число по заданным значениям = {matrix[linesNumber, columnsNumber]}.");
 }
